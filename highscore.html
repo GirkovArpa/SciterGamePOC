@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <title>Top Ten Players</title>
+    <style>
+      html {
+        overflow: hidden;
+      }
+
+      body {
+        margin: 0;
+        padding: 30px;
+        width: *;
+        height: *;
+        background-size: 100% 100%;
+        flow: vertical;
+        border-spacing: *;
+      }
+
+      .row {
+        flow: horizontal;
+        width: *;
+        border-spacing: *;
+        font-weight: bold;
+      }
+
+      input {
+        background-color: transparent;
+        border-radius: 0;
+        border: none;
+      }
+
+      #footer {
+        margin: auto;
+        text-align: center;
+      }
+    </style>
+    <script type="module">
+      const { parameters } = Window.this;
+      const { style } = document.body;
+      style.backgroundImage = parameters.backgroundImage;
+      style.color = parameters.other_color;
+
+
+      const { fontWeight, fontSize, fontFamily } = parameters;
+      style.fontFamily = fontFamily;
+      style.fontWeight = fontWeight;
+      style.fontSize = fontSize;
+
+      for (let i = 0; i < 10; i++) {
+        const style = `color: ${parameters[i == 0 ? 'new_color' : 'other_color']} !important`;
+        const value = i == 0 ? '' : '<nobody>';
+        const score = i == 0 ? parameters.score : '0';
+        const li = Element.create(<li>
+          <div class="row">
+            <input type="text" value={value} style={style} readonly />
+            <div class="score">{score}</div>
+          </div>
+        </li>);
+
+        document.$('ol').append(li);
+      }
+
+      document.$('li').style.color = parameters.new_color;
+      document.$('li input').readonly = false;
+    </script>
+  </head>
+
+  <body>
+    <ol></ol>
+    <div #footer>press &#x3C;Escape&#x3E; to close</div>
+  </body>
+
+</html>
